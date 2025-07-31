@@ -125,6 +125,14 @@ async function getMovies(movieTitle) {
              * Else write a for loop which will iterator over filteredMovies array 
              * and call createMovieCard() for each movie object in this array.
              */
+            if (filteredMovies.length === 0) {
+                createEmptyView();
+            } else {
+                for (let movie of filteredMovies) {
+                    createMovieCard(movie);
+                }
+            }
+
 
         }
     } catch(exception) {
@@ -169,7 +177,11 @@ function createEmptyView() {
      * TASK : 2
      * Create empty view and append it to "movieCards" section.
      */
-
+    console.log("createEmptyView");
+    const message = document.createElement("p");
+    message.className = "noresult";
+    message.textContent = "No movie found!!! Please search for another title.";
+    document.getElementById("movieCards").appendChild(message);
 }
 
 /**
@@ -191,5 +203,19 @@ function createMovieCard(movie) {
      * TASK : 3
      * Create Movie Card and append it "movieCards" section.
      */
-
+    const card = document.createElement("article");
+    card.className = "card";
+    const title = document.createElement("p");
+    title.className = "cardTitle";
+    title.textContent = movie.Title;
+    const posterDiv = document.createElement("div");
+    posterDiv.className = "cardPosterDiv";
+    const poster = document.createElement("img");
+    poster.className = "moviePoster";
+    poster.src = movie.Poster;
+    poster.alt = "Movie poster";
+    posterDiv.appendChild(poster);
+    card.appendChild(title);
+    card.appendChild(posterDiv);
+    document.getElementById("movieCards").appendChild(card);
 }
